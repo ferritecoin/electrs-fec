@@ -25,7 +25,7 @@ pub fn start_fetcher(
     new_headers: Vec<HeaderEntry>,
 ) -> Result<Fetcher<Vec<BlockEntry>>> {
     let fetcher = match from {
-        FetchFrom::Bitcoind => litecoind_fetcher,
+        FetchFrom::Bitcoind => ferrited_fetcher,
         FetchFrom::BlkFiles => blkfiles_fetcher,
     };
     fetcher(daemon, new_headers)
@@ -60,7 +60,7 @@ impl<T> Fetcher<T> {
     }
 }
 
-fn litecoind_fetcher(
+fn ferrited_fetcher(
     daemon: &Daemon,
     new_headers: Vec<HeaderEntry>,
 ) -> Result<Fetcher<Vec<BlockEntry>>> {
@@ -72,12 +72,12 @@ fn litecoind_fetcher(
     let sender = chan.sender();
     Ok(Fetcher::from(
         chan.into_receiver(),
-        spawn_thread("litecoind_fetcher", move || {
+        spawn_thread("ferrited_fetcher", move || {
             for entries in new_headers.chunks(100) {
                 let blockhashes: Vec<BlockHash> = entries.iter().map(|e| *e.hash()).collect();
                 let blocks = daemon
                     .getblocks(&blockhashes)
-                    .expect("failed to get blocks from litecoind");
+                    .expect("failed to get blocks from ferrited");
                 assert_eq!(blocks.len(), entries.len());
                 let block_entries: Vec<BlockEntry> = blocks
                     .into_iter()
