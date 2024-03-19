@@ -1,4 +1,4 @@
-// use regular Litecoin data structures
+// use regular Ferritecoin data structures
 pub use bitcoin::{
     blockdata::script, consensus::deserialize, util::address, Block, BlockHash, BlockHeader,
     OutPoint, Script, Transaction, TxIn, TxOut, Txid,
@@ -70,7 +70,7 @@ impl From<&str> for Network {
             "regtest" => Network::Regtest,
             "signet" => Network::Signet,
 
-            _ => panic!("unsupported Litecoin network: {:?}", network_name),
+            _ => panic!("unsupported Ferrite network: {:?}", network_name),
         }
     }
 }
