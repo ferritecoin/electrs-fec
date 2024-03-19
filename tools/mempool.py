@@ -51,9 +51,9 @@ def main():
     args = parser.parse_args()
 
     if args.testnet:
-        d = Daemon(port=19332, cookie_dir='~/.litecoin/testnet4')
+        d = Daemon(port=19573, cookie_dir='~/.ferrite/testnet4')
     else:
-        d = Daemon(port=9332, cookie_dir='~/.litecoin')
+        d = Daemon(port=9573, cookie_dir='~/.ferrite')
 
     txids, = d.request('getrawmempool', [[False]])
     txids = list(map(lambda a: [a], txids))
