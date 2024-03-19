@@ -1,8 +1,8 @@
 ## Installation
 
 Install [latest Rust](https://rustup.rs/) (1.31+),
-[latest Litecoin Core](https://litecoin.org) (0.16+)
-and [latest Electrum-LTC wallet](https://electrum-ltc.org/) (3.2+).
+[latest Ferrite Core](https://ferritecoin.org) (3.0.0+)
+and [latest Electrum-FEC wallet](https://github.com/koh-gt/electrum-fec/).
 
 Also, install the following packages (on Debian):
 ```bash
@@ -18,15 +18,15 @@ $ cargo build --release
 ```
 
 
-## Litecoind configuration
+## Ferrited configuration
 
-Allow Litecoin daemon to sync before starting Electrum server:
+Allow Ferritecoin daemon to sync before starting Electrum server:
 ```bash
-$ litecoind -server=1 -txindex=0 -prune=0
+$ ferrited -server=1 -txindex=0 -prune=0
 ```
 
 If you are using `-rpcuser=USER` and `-rpcpassword=PASSWORD` for authentication, please use `--cookie="USER:PASSWORD"` command-line flag.
-Otherwise, [`~/.litecoin/.cookie`](https://github.com/bitcoin/bitcoin/blob/0212187fc624ea4a02fc99bc57ebd413499a9ee1/contrib/debian/examples/bitcoin.conf#L70-L72) will be read, allowing this server to use litecoind JSONRPC interface.
+Otherwise, [`~/.ferrite/.cookie`](https://github.com/bitcoin/bitcoin/blob/0212187fc624ea4a02fc99bc57ebd413499a9ee1/contrib/debian/examples/bitcoin.conf#L70-L72) will be read, allowing this server to use ferrited JSONRPC interface.
 
 ## Usage
 
