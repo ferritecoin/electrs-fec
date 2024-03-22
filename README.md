@@ -13,12 +13,31 @@ Documentation for the database schema and indexing process [is available here](d
 Install Rust, Ferrite Core (no `txindex` needed) and the `clang` and `cmake` packages, then:
 
 ```bash
+# Install packages
+$ sudo apt install cargo clang cmake git curl
+
+# Download sources
 $ git clone https://github.com/ferritecoin/electrs-fec && cd electrs-fec
+$ cargo build --locked --release
 $ git checkout new-index
 $ cargo run --release --bin electrs -- -vvvv --daemon-dir ~/.ferrite
 
 # Or for liquid:
 $ cargo run --features liquid --release --bin electrs -- -vvvv --network liquid --daemon-dir ~/.liquid
+```
+
+Download [rust](https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe) and [cmake](https://github.com/Kitware/CMake/releases/download/v3.29.0/cmake-3.29.0-windows-x86_64.msi)
+```
+Windows:
+pip3 install psutil
+git clone https://github.com/llvm/llvm-project.git llvm
+cmake -S llvm\llvm -B build -DLLVM_ENABLE_PROJECTS=clang -DLLVM_TARGETS_TO_BUILD=X86 -Thost=x64
+```
+-- Build files have been written to: C:/Users/root/build
+open LLVM.sln
+Release x64, build 
+```
+
 ```
 
 See [electrs's original documentation](https://github.com/romanz/electrs/blob/master/doc/usage.md) for more detailed instructions.
