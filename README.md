@@ -15,30 +15,31 @@ Install Rust, Ferrite Core (no `txindex` needed) and the `clang` and `cmake` pac
 ```bash
 # Install packages
 $ sudo apt install cargo clang cmake git curl
-
-# Download sources
-$ git clone https://github.com/ferritecoin/electrs-fec && cd electrs-fec
-$ cargo build --locked --release
-$ git checkout new-index
-$ cargo run --release --bin electrs -- -vvvv --daemon-dir ~/.ferrite
-
-# Or for liquid:
-$ cargo run --features liquid --release --bin electrs -- -vvvv --network liquid --daemon-dir ~/.liquid
 ```
 
-Download [rust](https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe) and [cmake](https://github.com/Kitware/CMake/releases/download/v3.29.0/cmake-3.29.0-windows-x86_64.msi)
+## Download sources (Windows)
 ```
-Windows:
-pip3 install psutil
-git clone https://github.com/llvm/llvm-project.git llvm
-cmake -S llvm\llvm -B build -DLLVM_ENABLE_PROJECTS=clang -DLLVM_TARGETS_TO_BUILD=X86 -Thost=x64
-```
--- Build files have been written to: C:/Users/root/build
-open LLVM.sln
-Release x64, build 
+git clone https://github.com/ferritecoin/electrs-fec && cd electrs-fec
+cargo build --locked --release
+git checkout new-index
 ```
 
+>  thread 'main' panicked at 'Unable to find libclang: "the `libclang` shared library at C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\Llvm\\ARM64\\bin\\libclang.dll could not be opened: LoadLibraryExW failed
+
+Download [libclang](https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.2/clang+llvm-18.1.2-x86_64-pc-windows-msvc.tar.xz)
+Extract, go to bin, copy libclang.dll into `C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\Llvm\ARM64\bin\libclang.dll`
+
+> error: failed to run custom build command for `electrs-librocksdb-sys v6.11.4-e3`
+https://github.com/rust-rocksdb/rust-rocksdb/issues/713
 ```
+cargo update
+```
+Then update rust using [rustup](https://www.rust-lang.org/tools/install) - complete, stable
+```
+cargo run --release --bin electrs -- -vvvv --daemon-dir ~/.ferrite
+
+```
+
 
 See [electrs's original documentation](https://github.com/romanz/electrs/blob/master/doc/usage.md) for more detailed instructions.
 Note that our indexes are incompatible with electrs's and has to be created separately.
