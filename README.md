@@ -10,7 +10,7 @@ Documentation for the database schema and indexing process [is available here](d
 
 Uses [rust-ferrite](https://github.com/ferritecoin/rust-ferrite) `master` branch.
 
-### Installing & indexing
+### Installing & indexing - Ubuntu Linux 22
 
 #### Install Rust, Ferrite Core (no `txindex` needed) and the `clang` and `cmake` packages, then:
 ```
@@ -36,6 +36,36 @@ or alternatively $ cargo run --release --bin electrs -- -vvvv --daemon-dir ~/.fe
 $ cargo run --features liquid --release --bin electrs -- -vvvv --network liquid --daemon-dir ~/.liquid
 ```
 
+### Windows 10 
+
+#### Install dependencies
+```
+
+# Install rust and VS
+https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe
+# Ensure to select both MSVC v143 VS 2022 C++ x86/x64 build tools and Windows 11 SDK (about 5.6GB)
+
+# Install cmake
+https://github.com/Kitware/CMake/releases/download/v3.30.2/cmake-3.30.2-windows-x86_64.msi
+
+# Install git
+https://github.com/git-for-windows/git/releases/download/v2.46.0.windows.1/Git-2.46.0-64-bit.exe
+
+# Use Elevated Powershell
+# Install chocolatey
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+  # Install clang
+  # Note that installing clang later than version 14 will fail to build librocksdb-sys
+  choco install llvm --version 14.0.6 -y
+
+# Open Powershell in directory
+git clone https://github.com/ferritecoin/electrs-fec && cd electrs-fec
+cd electrs-fec
+cargo update
+cargo run --release --bin electrs -- -vvvv --daemon-dir ~/.ferrite --cookie user:password --daemon-rpc-addr 127.0.0.1:9573 --jsonrpc-import
+```
+
 ## Known issues
 ### Build Errors
 #### No method named `emit_rerun_if_env_changed`
@@ -58,6 +88,7 @@ cc = "1.0.72"
 $ cargo update
 # and retry
 $ cargo run --release --bin electrs -- -vvvv --daemon-dir ~/.ferrite --cookie user:password --daemon-rpc-addr 127.0.0.1:9573 --jsonrpc-import
+
 ```
 ### RPC Errors
 #### failed to read cookie
